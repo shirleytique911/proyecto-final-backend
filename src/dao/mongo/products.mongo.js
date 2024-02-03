@@ -34,35 +34,35 @@ export default class Products {
     }
     deleteProduct = async (productId) => {
         try {
-            // Verificar si el ID es válido
+            // Verificar  el ID 
             if (!mongoose.Types.ObjectId.isValid(productId)) {
                 return 'ID de producto no válido';
             }
     
-            // Eliminar el producto utilizando el ID
+            // Eliminar  producto utilizando el ID
             let deletedProduct = await productsModel.deleteOne({ _id: new mongoose.Types.ObjectId(productId) });
             return deletedProduct
         } catch (error) {
-            console.error('Error al eliminar producto:', error);
+            console.error('Error no se puede eliminar producto:', error);
             return 'Error al eliminar producto';
         }
     };
     getProductById = async (id) => { 
-        try 
-        {
-          //La propiedad lean() arregla el error own properties que se muestra al momento de querer mostrar datos desde mongoose, ya que,
-          //viene con propiedades propias de mongoose y lean() se las quita para quedar solo el json
-          const prod = await productsModel.findById(id).lean();    
-          if (!prod) 
-          {
-            return 'Usuario no encontrado';
-          }   
-          return prod;
+        try {
+            // Al obtener datos de la base de datos con Mongoose, los objetos retornados a menudo incluyen propiedades innecesarias específicas de Mongoose.
+            //El método lean() de Mongoose elimina estas propiedades, dejando solo los datos esenciales en formato JSON puro."
+
+            const prod = await productsModel.findById(id).lean();    
+            if (prod === null) {
+                return 'Producto no encontrado';
+            }   
+            return prod;
         } catch (error) {
-          console.error('Error al obtener el usuario:', error);
-          return 'Error al obtener el usuario';
+            console.error('Error al obtener el producto:', error);
+            return 'Error al obtener el producto';
         }
     }
+    
     getProductOwnerById = async (productId) => {
         try {
             const product = await productsModel.findById(productId).lean();
@@ -70,17 +70,17 @@ export default class Products {
                 return 'Producto no encontrado';
             }
     
-            // Obtén el ID del owner del producto
+            //  ID del owner del producto
             const ownerId = product.owner;
-            // Verifica si se encontró el owner y formatea el resultado
+            
             if (ownerId) {
                 return {owner : ownerId}
             } else {
                 return 'Owner no encontrado';
             }
         } catch (error) {
-            console.error('Error al obtener el owner del producto:', error);
-            return 'Error al obtener el owner del producto';
+            console.error('Error al acceder al owner del producto:', error);
+            return 'Error al acceder al owner del producto';
         }
     };
 }

@@ -11,7 +11,7 @@ const router = Router()
 
 const productMongo = new Products()
 
-//Obtener productos
+//Acceder a los productos
 router.get("/", async (req, res) => {
     try
     {
@@ -78,7 +78,7 @@ router.delete('/:idProd', async (req, res) => {
         if(userRol == 'premium')
         {
             await transport.sendMail({
-                from: 'bast.s.rojas@gmail.com',
+                from: 'lorenatique911@gmail.com',
                 to: ownerProd.owner,
                 subject: 'Se elimina Producto con Owner Premium',
                 html:`Se elimina producto con id ${idProducto} correctamente`,

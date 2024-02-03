@@ -74,7 +74,7 @@ const httpServer = app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`)
 })
 
-//---------------------------------------API------------------------------------------//
+//---API
 const swaggerOptions = {
     definition:{
         openapi:'3.0.1',
@@ -90,19 +90,19 @@ const swaggerOptions = {
 }
 const specs = swaggerJSDoc(swaggerOptions)
 app.use("/apidocs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
-//------------------------------------------------------------------------------------//
-//---------------------------------------Socket.io-----------------------------------//
+
+//--Socket.io
 
 const socketServer = new Server(httpServer)
 
-//-------------------------------Prueba conexión-------------------------------------------//
+//--Prueba 
 socketServer.on("connection", socket => {
     console.log("Socket Conectado")
-//------Recibir información del cliente----------//
+//--se recibe información del cliente
     socket.on("message", data => {
         console.log(data)
     })
-//-----------------------------------------------//
+
     socket.on("delUser", (id) => {
         users.deleteUser(id)
         socketServer.emit("success", "Usuario Eliminado Correctamente");
@@ -196,11 +196,11 @@ socketServer.on("connection", socket => {
         })
         socketServer.emit("success", "Correo enviado correctamente");
     });
-//-----------------------------Enviar información al cliente----------------------------------//
+//-Enviar información al cliente
     socket.emit("test","mensaje desde servidor a cliente, se valida en consola de navegador")
-//--------------------------------------------------------------------------------------------//
+
 })
-//Prueba Back con endpoint
+//Prueba 
 app.use("/carts", cartsRouter)
 app.use("/products", productsRouter)
 app.use("/users", usersRouter)
@@ -217,7 +217,6 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Error de autenticación" });
     }
 
-    // Comparar la contraseña proporcionada con la contraseña almacenada encriptada
     try {
         const passwordMatch = isValidPassword(user, password);
 
@@ -226,17 +225,16 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: "Error de autenticación" });
         }
 
-        // Si la contraseña coincide, puedes continuar con la generación de token y otras operaciones
-        const token = generateAndSetToken(res, email, password);  // Aquí se encripta la contraseña antes de usarla
+        const token = generateAndSetToken(res, email, password);  
         const userDTO = new UserDTO(user);
         const prodAll = await products.get();
-        users.updateLastConnection(email) //Se actualiza ultima conexión de user cada vez que se inicia sesion
+        users.updateLastConnection(email) 
         res.json({ token, user: userDTO, prodAll });
 
         // Log de éxito
         req.logger.info("Inicio de sesión exitoso para el usuario: " + emailToFind);
     } catch (error) {
-        // Manejo de errores relacionados con bcrypt
+       
         req.logger.error("Error al comparar contraseñas: " + error.message);
         console.error("Error al comparar contraseñas:", error);
         return res.status(500).json({ message: "Error interno del servidor" });
@@ -332,7 +330,7 @@ app.get('/admin/users',passportCall('jwt'), authorization('user'),(req,res) =>{
         res.render('admin-user', { users: simplifiedUserData  });
     });
 })
-//-----------------------------------Cambiar Contraseña--------------------------------//
+//Cambiar Contraseña
 app.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     const emailToFind = email;
@@ -343,10 +341,10 @@ app.post('/forgot-password', async (req, res) => {
       res.json("Error al reestablecer contraseña usuario "+email+" no existe" );
       return res.status(401).json({ message: "Error al reestablecer contraseña" });
     }
-    // Crear y firmar el token JWT con una expiración de 1 hora
+    
     const token = generateAndSetTokenEmail(email)
   
-    // Configurar el enlace de restablecimiento de contraseña
+    
     const resetLink = `http://localhost:8080/reset-password?token=${token}`;
   
     let result = transport.sendMail({
@@ -379,7 +377,7 @@ app.post('/forgot-password', async (req, res) => {
         res.sendFile('index.html', { root: app.get('views') });
     }
   });
-//-----------------------------------Cambiar Contraseña--------------------------------//
+//Cambiar Contraseña-
 //Ver Carritos//
 app.get("/carts/:cid", async (req, res) => {
     let id = req.params.cid
@@ -389,7 +387,7 @@ app.get("/carts/:cid", async (req, res) => {
         producto.total = producto.quantity * producto.productId.price
     });
     const sumTotal = allCarts.products.reduce((total, producto) => {
-        return total + (producto.total || 0);  // Asegurarse de manejar casos donde total no esté definido
+        return total + (producto.total || 0); 
     }, 0);
     res.render("viewCart", {
         title: "Vista Carro",
@@ -399,7 +397,7 @@ app.get("/carts/:cid", async (req, res) => {
     });
 })
 //Fin Ver Carritos//
-//Ver Checkout//
+
 app.get("/checkout", async (req, res) => {
     let cart_Id = req.query.cartId
     let purchaser = req.query.purchaser
@@ -434,7 +432,7 @@ app.get("/tickets/:tid", async (req, res) => {
     });
 })
 //Fin Ver Tickets//
-//-----------------------------------Mocking--------------------------------//
+//Mocking-
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -446,7 +444,7 @@ app.get("/mockingproducts", async(req,res)=>{
         const product = {
             id: nanoid(),
             description: `Product ${i + 1}`,
-            image: 'https://example.com/image.jpg',
+            image: 'http://www.example.com/image.gif',
             price: getRandomNumber(1, 1000),
             stock: getRandomNumber(1, 100),
             category: `Category ${i % 5 + 1}`,
@@ -458,5 +456,3 @@ app.get("/mockingproducts", async(req,res)=>{
 
     res.send(products);
 })
-
-

@@ -24,7 +24,7 @@ document.getElementById('user-form').addEventListener('submit', (e) => {
     const eliminarUser = eliminarUserCheckbox.checked;
 
     if (eliminarUser) {
-        // Enviar mensaje si el checkbox está seleccionado
+        
         socket.emit("delUser", { id: id });
     }else{
         socket.emit("updRolUser", { id: id, newRol: rol });
@@ -36,10 +36,10 @@ socket.on("success", (data) => {
         icon: 'success',
         title: data,
         text: `A continuación verás la lista actualizada`,
-        confirmButtonText: 'Aceptar', // Cambia el texto del botón Aceptar
+        confirmButtonText: 'Aceptar', 
     }).then((result) => {
         if (result.isConfirmed) {
-            location.reload(); // Recarga la página cuando se hace clic en Aceptar
+            location.reload(); 
         }
     });
 });

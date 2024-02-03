@@ -79,13 +79,13 @@ describe('Testing Cart DAO Mocha/Chai/SuperTest', () => {
             let products = [
                 {
                     description: 'algo 3',
-                    price: 100,
-                    stock: 2
+                    price: 200,
+                    stock: 100
                 },
                 {
                     description: 'algo2',
-                    price: 2500,
-                    stock: 2
+                    price: 1500,
+                    stock: 100
                 },
 
             ];

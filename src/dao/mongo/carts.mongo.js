@@ -75,21 +75,20 @@ export default class Carts {
         try {
             let totalAmount = 0;
     
-            // Verifica que 'productos' sea definido y que sea un array
             if (!productos || !Array.isArray(productos)) {
                 console.error('La propiedad "productos" no es un array válido.');
                 return totalAmount;
             }
     
             for (const producto of productos) {
-                // Supongamos que cada producto tiene un precio y stock definidos
+                
                 totalAmount += producto.price * producto.stock;
             }
     
             return totalAmount;
         } catch (error) {
             console.error("Error al calcular el monto:", error);
-            return 0; // O manejar el error de otra manera según tus necesidades
+            return 0; 
         }
     };
     
@@ -103,25 +102,25 @@ export default class Carts {
             if (typeof cartId !== 'string') {
                 throw new Error('El cartId no es una cadena válida.');
             }
-            // Convertir el cartId de cadena a ObjectId
+           
             const cartObjectId = new mongoose.Types.ObjectId(cartId)
-            // Buscar el carrito existente o crear uno nuevo si no existe
+            
             let cart = await cartsModel.findById(cartObjectId)           
-            // Verificar si ya existe el producto en el carrito
+            
             const existingProduct = cart.products.find(product => product.productId.equals(productId));
     
             if (existingProduct) {
-                // Si el producto ya está en el carrito, actualizar la cantidad
+                // actualizar el carrito 
                 existingProduct.quantity += quantity;
             } else {
-                // Si el producto no está en el carrito, agregarlo
+                // agregarlo al carrito
                 cart.products.push({
                     productId: productId,
                     quantity: quantity,
                 });
             }
     
-            // Guardar los cambios en el carrito
+            // Guardar cambios en el carrito
             await cart.save();
     
             console.log("Producto agregado al carrito correctamente");
@@ -142,8 +141,8 @@ export default class Carts {
       
           return cart;
         } catch (error) {
-          console.error('Error al obtener el carrito con productos:', error);
-          return 'Error al obtener el carrito con productos';
+          console.error('Error no se obtienen los productos del carrito de compra:', error);
+          return 'Error con los productos del carrito';
         }
       }     
 }

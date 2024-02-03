@@ -19,8 +19,10 @@ socket.on("success", (data) => {
         confirmButtonText: 'Aceptar', // Cambia el texto del botón Aceptar
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '/current'; // Recarga la página cuando se hace clic en Aceptar
+            window.location.href = '/current'; // Recarga la página
         }
     });
 });
+
+
 

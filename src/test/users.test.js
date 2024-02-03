@@ -43,7 +43,7 @@ describe('Testing User DAO Mocha/Chai/SuperTest', () => {
         expect(result).to.have.property('_id') //Chai
     })
     it("El DAO debe devolver un usuario despues de colocar un correo", async function () {
-        let emailToFind = "bastian@gmail.com"
+        let emailToFind = "lorenatique911@gmail.com"
         const result = await this.usersDao.findEmail({ email: emailToFind })
         assert.strictEqual(typeof result, "object") //Mocha
         expect(result).to.be.an('object') //Chai

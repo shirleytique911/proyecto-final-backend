@@ -23,8 +23,8 @@ export default class Tickets {
             let result = await ticketsModel.create(ticket);
             return result
         } catch (error) {
-            console.error("Error en la creación del ticket:", error);
-            return "Error interno";
+            console.error("Error al crear el ticket:", error);
+            return "Error del sistema";
         }
     }
 }

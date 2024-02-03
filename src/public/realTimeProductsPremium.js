@@ -73,7 +73,7 @@ socket.on("success", (data) => {
         confirmButtonText: 'Aceptar', // Cambia el texto del botón Aceptar
     }).then((result) => {
         if (result.isConfirmed) {
-            location.reload(); // Recarga la página cuando se hace clic en Aceptar
+            location.reload();  
         }
     });
 });
@@ -85,7 +85,7 @@ socket.on("errorDelPremium", (data) => {
         confirmButtonText: 'Aceptar', // Cambia el texto del botón Aceptar
     }).then((result) => {
         if (result.isConfirmed) {
-            location.reload(); // Recarga la página cuando se hace clic en Aceptar
+            location.reload();  
         }
     });
 });

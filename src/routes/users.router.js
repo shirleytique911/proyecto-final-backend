@@ -82,7 +82,7 @@ router.delete('/', async (req, res) => {
       // Enviar correos electrónicos a los usuarios eliminados
       for (const userEmail of result) {
       await transport.sendMail({
-        from: 'bast.s.rojas@gmail.com', 
+        from: 'lorenatique911@gmail.com', 
         to: userEmail,
         subject: 'Eliminación de cuenta por inactividad',
         text: 'Tu cuenta ha sido eliminada debido a la inactividad.'
@@ -112,18 +112,18 @@ router.post("/:uid/documents", uploader.fields([
   if (!user) {
     return res.status(404).json({ status: 'error', error: 'Usuario no encontrado' });
   }
-  // Verifica si hay archivos en cada campo y procesa según el nombre del campo
+  
   if (files['profiles']) {
     const profiles = files['profiles'].map(file => ({ name: 'profiles', path: file.path }));
-    // Puedes manejar la información de los perfiles según tus necesidades
-    // Aquí se asume que hay un array llamado `products` donde se almacenan los datos
+    
+   
     usersMongo.updateDocuments(userId, ...profiles)
     allFiles.push(...profiles);
   }
 
   if (files['products']) {
     const productFiles = files['products'].map(file => ({ name: 'products', path: file.path }));
-    // Puedes manejar la información de los productos según tus necesidades
+   
    
     allFiles.push(...productFiles);
     usersMongo.updateDocuments(userId, ...productFiles)
@@ -131,29 +131,25 @@ router.post("/:uid/documents", uploader.fields([
 
   if (files['documents']) {
     const documentFiles = files['documents'].map(file => ({ name: 'documents', reference: file.path }));
-    // Puedes manejar la información de los documentos según tus necesidades
-    // Aquí se asume que hay un array llamado `products` donde se almacenan los datos
+    
     usersMongo.updateDocuments(userId, ...documentFiles)
     allFiles.push(...documentFiles);
   }
   if (files['identificacion']) {
     const identificacionFiles = files['identificacion'].map(file => ({ name: 'identificacion', reference: file.path }));
-    // Puedes manejar la información de los documentos según tus necesidades
-    // Aquí se asume que hay un array llamado `products` donde se almacenan los datos
+    
     usersMongo.updateDocuments(userId, ...identificacionFiles)
     allFiles.push(...identificacionFiles);
   }
   if (files['comprobante_domicilio']) {
     const comprobante_domicilioFiles = files['comprobante_domicilio'].map(file => ({ name: 'comprobante_domicilio', reference: file.path }));
-    // Puedes manejar la información de los documentos según tus necesidades
-    // Aquí se asume que hay un array llamado `products` donde se almacenan los datos
+    
     usersMongo.updateDocuments(userId, ...comprobante_domicilioFiles)
     allFiles.push(...comprobante_domicilioFiles);
   }
   if (files['comprobante_estado_cuenta']) {
     const comprobante_estado_cuentaFiles = files['comprobante_estado_cuenta'].map(file => ({ name: 'comprobante_estado_cuenta', reference: file.path }));
-    // Puedes manejar la información de los documentos según tus necesidades
-    // Aquí se asume que hay un array llamado `products` donde se almacenan los datos
+   
     usersMongo.updateDocuments(userId, ...comprobante_estado_cuentaFiles)
     allFiles.push(...comprobante_estado_cuentaFiles);
   }

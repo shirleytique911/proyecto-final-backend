@@ -13,14 +13,14 @@ const cartMongo = new Carts()
 router.get("/", async (req, res) => {
     try
     {
-        req.logger.info('Se obtiene lista de carritos');
+        req.logger.info(' lista de carritos');
         let result = await cartMongo.get()
         res.status(200).send({ status: "success", payload: result });
     }
     catch(error)
     {
-        req.logger.info('Error al obtener lista de carritos');
-        res.status(500).send({ status: "error", message: "Error interno del servidor" });
+        req.logger.info('Error,No se accede a  lista de carrito');
+        res.status(500).send({ status: "error", message: "Error  del servidor" });
     } 
 })
 //Crear Carrito

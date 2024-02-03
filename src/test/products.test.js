@@ -33,8 +33,8 @@ describe('Testing Product DAO Mocha/Chai/SuperTest', () => {
         let mockProduct = {
             description: "Test Description",
             image: "Test Image",
-            price: 1777,
-            stock: 77,
+            price: 2500,
+            stock: 100,
             category: "Test Category",
             availability: "in_stock",
             owner: "Test Owner"
@@ -48,8 +48,8 @@ describe('Testing Product DAO Mocha/Chai/SuperTest', () => {
         let mockProductUpd = {
             description: "Test Desc Upd",
             image: "Test Image Upd",
-            price: 1777,
-            stock: 77,
+            price: 2500,
+            stock: 100,
             category: "Test Category Upd",
             availability: "Test Availability Upd",
             owner: "Test Owner Upd"
@@ -78,8 +78,8 @@ describe('Testing Product DAO Mocha/Chai/SuperTest', () => {
         let mockProduct = {
             description: "Test POST",
             image: "Test POST",
-            price: 1777,
-            stock: 77,
+            price: 2500,
+            stock: 100,
             category: "Test POST",
             availability: "in_stock",
             owner: "lorenatique911@gmail.com"

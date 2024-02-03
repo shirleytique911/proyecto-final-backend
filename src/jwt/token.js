@@ -11,7 +11,7 @@ export function getEmailFromTokenLogin(token) {
     return decoded.email;
   } catch (error) {
     console.error('Error al decodificar el token:', error);
-    return null; // o lanza una excepción según tus necesidades
+    return null;
   }
 }
 
@@ -38,10 +38,10 @@ export function validateTokenResetPass(token) {
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
       console.error('El token ha expirado');
-      return null; // or handle expiration in some other way
+      return null;
     } else {
       console.error('Error al verificar el token:', error);
-      return null; // or handle other errors in some other way
+      return null; 
     }
   }
 }

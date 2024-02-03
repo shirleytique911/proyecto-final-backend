@@ -17,8 +17,7 @@ export default class Users {
     getUserById = async (id) => { 
         try 
         {
-          //La propiedad lean() arregla el error own properties que se muestra al momento de querer mostrar datos desde mongoose, ya que,
-          //viene con propiedades propias de mongoose y lean() se las quita para quedar solo el json
+          //La propiedad lean() arregla el error own properties que se muestra al momento de querer mostrar datos desde mongoose.
           const user = await usersModel.findById(id).lean();    
           if (!user) 
           {
@@ -54,10 +53,10 @@ export default class Users {
     }
     getUserRoleByEmail = async (email) => {
       try {
-        // Buscar el usuario por correo electrónico en tu modelo de usuario
+        
         const user = await usersModel.findOne({ email });
     
-        // Verificar si se encontró un usuario y si tiene un rol premium
+        
         if (user && user.rol === 'premium') {
           return 'premium'
         } else {
@@ -70,14 +69,14 @@ export default class Users {
     };
     getIdCartByEmailUser = async (email) => {
       try {
-        // Buscar el usuario por correo electrónico en tu modelo de usuario
+       
         const user = await usersModel.findOne({ email });
     
-        // Verificar si se encontró un usuario y si tiene un rol premium
+      
         if (user && user.id_cart) {
           return user.id_cart;
         } else {
-            return null; // O cualquier valor que indique que no se encontró un carrito
+            return null; 
         }
       } catch (error) {
         console.error('Error al obtener el rol del usuario:', error);
@@ -177,7 +176,7 @@ export default class Users {
             return updatedUser;
           } else {
             console.error('Usuario no encontrado');
-            return null; // o lanza una excepción según tus necesidades
+            return null;
           }
         } catch (error) {
           console.error('Error al actualizar el rol:', error);
@@ -200,20 +199,20 @@ export default class Users {
       };
       deleteUsersByFilter = async (filter) => {
         try {
-          // Obtener usuarios que coinciden con el filtro
+          
           const usersToDelete = await usersModel.find(filter);
 
-          // Obtener los correos electrónicos de los usuarios antes de eliminarlos
+          
           const deletedUserEmails = usersToDelete.map(user => user.email);
 
-          // Eliminar usuarios inactivos
+         
           const result = await usersModel.deleteMany(filter);
 
           if (result.deletedCount > 0) {
-            // Si se eliminó al menos un usuario, devolver los correos electrónicos
+            
             return deletedUserEmails;
           } else {
-            // No se eliminaron usuarios
+           
             return [];
           }
         } catch (error) {
@@ -231,15 +230,14 @@ export default class Users {
             return null;
           }
       
-          // Asegúrate de que user.documents sea un array
+          
           if (!Array.isArray(user.documents)) {
             user.documents = [];
           }
       
-          // Agrega los nuevos documentos a la matriz existente
+          
           user.documents.push(...(Array.isArray(newDocuments) ? newDocuments : [newDocuments]));
       
-          // Guarda el usuario actualizado en la base de datos
           const updatedUser = await user.save();
       
           return updatedUser;
@@ -257,20 +255,20 @@ export default class Users {
             return false; // Devuelve false si el usuario no se encuentra o no tiene documentos
           }
       
-          // Nombres de documentos requeridos
+          // Nombres de documentos 
           const requiredDocumentNames = ['identificacion', 'comprobante_domicilio', 'comprobante_estado_cuenta'];
       
-          // Verifica la presencia de cada documento requerido
+          // Verifica  de cada documento requerido
           for (const requiredDocumentName of requiredDocumentNames) {
             const hasDocument = user.documents.some(doc => doc.name === requiredDocumentName);
             if (!hasDocument) {
-              return false; // Devuelve false si falta al menos uno de los documentos requeridos
+              return false; 
             }
           }
       
-          return true; // Si todos los documentos requeridos están presentes, devuelve true
+          return true; 
         } catch (error) {
-          console.error('Error al verificar los documentos:', error);
+          console.error('Error en la verificacion:', error);
           throw error;
         }
       };
