@@ -28,17 +28,19 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUIExpress from 'swagger-ui-express'
 import bodyParser from 'body-parser'
 const app = express()
-const port = process.env.PORT || 8080
+const port = config.port || 8080
 
 const users = new UserMongo()
 const products = new ProdMongo()
 const carts = new CartMongo()
 const tickets = new TicketMongo()
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(config.mongo_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+console.log(process.env.mongo_url);
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
