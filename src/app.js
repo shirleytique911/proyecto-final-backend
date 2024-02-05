@@ -36,11 +36,14 @@ const carts = new CartMongo()
 const tickets = new TicketMongo()
 
 mongoose.connect(config.mongo_url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('Conexión a MongoDB establecida');
+})
+.catch((err) => {
+  console.error('Error al conectar a MongoDB:', err);
 });
 
-console.log(process.env.mongo_url);
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -186,7 +189,7 @@ socketServer.on("connection", socket => {
 
     socket.on("newEmail", async({email, comment}) => {
         let result = await transport.sendMail({
-            from:'Chat Correo <lorenatique911@gmail.com>',
+            from:'Chat Correo <shirleytique911@gmail.com>',
             to:email,
             subject:'Correo con Socket y Nodemailer',
             html:`
@@ -350,7 +353,7 @@ app.post('/forgot-password', async (req, res) => {
     const resetLink = `http://localhost:8080/reset-password?token=${token}`;
   
     let result = transport.sendMail({
-        from:'<lorenatique911@gmail.com>',
+        from:'<shirleytique911@gmail.com>',
         to:email,
         subject:'Restablecer contraseña',
         html:`Haz clic en el siguiente enlace para restablecer tu contraseña: <a href="${resetLink}">Restablecer contraseña</a>`,

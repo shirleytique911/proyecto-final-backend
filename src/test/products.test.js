@@ -82,7 +82,7 @@ describe('Testing Product DAO Mocha/Chai/SuperTest', () => {
             stock: 100,
             category: "Test POST",
             availability: "in_stock",
-            owner: "lorenatique911@gmail.com"
+            owner: "shirleytique911@gmail.com"
         }
         
         const response = await requester.post('/products').send(mockProduct)
