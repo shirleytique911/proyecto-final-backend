@@ -4,7 +4,6 @@ dotenv.config();
 
 export default {
     persistence: process.env.PERSISTENCE,
-    mongo_url: `mongodb+srv://shirleytique911:GKZraArQ50QuepXc@cluster0.dvtsniz.mongodb.net/?retryWrites=true&w=majority`,
+    mongo_url: process.env.DB_CONNECTION_STRING,
     port: process.env.PORT
 };
-

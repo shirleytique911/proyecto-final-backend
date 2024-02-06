@@ -35,20 +35,16 @@ const products = new ProdMongo()
 const carts = new CartMongo()
 const tickets = new TicketMongo()
 
-mongoose.connect(config.mongo_url, {
-})
-.then(() => {
-  console.log('Conexión a MongoDB establecida');
-})
-.catch((err) => {
-  console.error('Error al conectar a MongoDB:', err);
-});
+console.log(config.mongo_url);
+mongoose.connect(process.env.DB_CONNECTION_STRING);
 
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: "Secret-key"
 }
+
+
 
 passport.use(
     new JwtStrategy(jwtOptions, (jwt_payload, done)=>{
@@ -461,3 +457,5 @@ app.get("/mockingproducts", async(req,res)=>{
 
     res.send(products);
 })
+
+
