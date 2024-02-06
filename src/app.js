@@ -35,8 +35,9 @@ const products = new ProdMongo()
 const carts = new CartMongo()
 const tickets = new TicketMongo()
 
-console.log(config.mongo_url);
+
 mongoose.connect(process.env.DB_CONNECTION_STRING);
+console.log(config.mongo_url);
 
 
 const jwtOptions = {
